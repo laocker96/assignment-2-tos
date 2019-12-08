@@ -108,4 +108,21 @@ public class TakeAwayBillImplementationTest {
         
         bill.getOrderPrice(itemsOrdered);
     }
+    
+    /**
+     * Se l’importo totale è inferiore a 10 € viene aggiunta una commissione di 0,50 €
+     */
+    @Test
+    public void testGetOrderPricePlusCommissionIfLessThan10Euros() {
+        TakeAwayBillImplementation bill = new TakeAwayBillImplementation();
+        List<MenuItem> itemsOrdered = getItemsOrdered();
+        itemsOrdered.clear();
+        itemsOrdered.add(new MenuItem(ItemType.PANINI, "Panino Primavera", 3));
+        itemsOrdered.add(new MenuItem(ItemType.BEVANDE, "Coca Cola", 2.5));
+        
+        double totalRawPrice = getTotalRawPrice(itemsOrdered);
+        double commission = 0.5;
+        
+        assertEquals( totalRawPrice + commission, bill.getOrderPrice(itemsOrdered), 0.001);
+    }
 }

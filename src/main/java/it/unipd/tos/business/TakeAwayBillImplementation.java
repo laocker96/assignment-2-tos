@@ -49,6 +49,10 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
             totalPrice = getDiscount(totalPrice, 10);
         }
         
+        if(totalPrice < 10) {
+            totalPrice += 0.5;
+        }
+        
         return totalPrice;
     }
     
