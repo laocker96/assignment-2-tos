@@ -32,11 +32,11 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
      * @throws TakeAwayBillException
      */
     public double getOrderPrice(List<MenuItem> itemsOrdered) throws TakeAwayBillException {
-    	
-    	if (itemsOrdered.size() >= 30) {
+         
+        if (itemsOrdered.size() >= 30) {
             throw new TakeAwayBillException();
         }
-         	
+              
         double totalPrice = getTotalPrice(itemsOrdered);
         
         List<MenuItem> paniniOrdered = filterByItemType(itemsOrdered, ItemType.PANINI);
