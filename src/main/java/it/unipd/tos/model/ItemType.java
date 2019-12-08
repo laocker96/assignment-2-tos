@@ -5,4 +5,7 @@
 package it.unipd.tos.model;
 
 public enum ItemType {
+    PANINI,
+    FRITTI,
+    BEVANDE
 }

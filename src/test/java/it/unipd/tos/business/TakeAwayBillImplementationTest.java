@@ -1,6 +1,5 @@
 package it.unipd.tos.business;
 
-//Verranno utilizzati in seguito
 import it.unipd.tos.business.exception.TakeAwayBillException;
 import it.unipd.tos.model.ItemType;
 import it.unipd.tos.model.MenuItem;
