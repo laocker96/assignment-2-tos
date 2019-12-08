@@ -12,9 +12,47 @@ import java.util.stream.Stream;
 import static org.junit.Assert.assertEquals;
 
 public class TakeAwayBillImplementationTest {
-	@Test
-    public void test() {
-        TakeAwayBillImplementation bill = new TakeAwayBillImplementation();
-        assertEquals(bill.getOrderPrice(null), 0, 0.001);
+	/**
+     * itemsOrdered is the base data instance where RestaurantBillImpl.getOrderPrice
+     * tests will be built upon
+     */
+    private List<MenuItem> getItemsOrdered() {
+        return Stream.of(
+                new MenuItem(ItemType.PANINI, "Primavera", 3.5),
+                new MenuItem(ItemType.PANINI, "Vegetariano", 3.5),
+                new MenuItem(ItemType.PANINI, "Fantasia", 4),
+                new MenuItem(ItemType.FRITTI, "Arancini", 2.5),
+                new MenuItem(ItemType.FRITTI, "Olive Ascolane", 9),
+                new MenuItem(ItemType.FRITTI, "Corn-dog", 3), 
+                new MenuItem(ItemType.BEVANDE, "Coca Cola", 2.5),
+                new MenuItem(ItemType.BEVANDE, "Birra Moretti", 3),
+                new MenuItem(ItemType.BEVANDE, "Acqua Naturale", 1.5)
+                
+        ).collect(Collectors.toList());
+    }
+   
+    /**
+     * Calculate the itemsOrdered price before any discounts or commissions
+     * @param itemsOrdered
+     * @return
+     */
+    private static double getTotalRawPrice(List<MenuItem> itemsOrdered) {
+        return itemsOrdered
+                .stream()
+                .mapToDouble(m -> m.getPrice())
+                .sum();
+    }
+    
+    /**
+     *Dato un elenco di ordinazioni (Panini e Fritti e Bevande) calcolare il totale
+     */
+    @Test
+    public void testGetOrderPrice() {
+    	TakeAwayBillImplementation bill = new TakeAwayBillImplementation();
+    	List<MenuItem> itemsOrdered = getItemsOrdered();
+    	
+    	double totalRawPrice = getTotalRawPrice(itemsOrdered);
+    	
+        assertEquals(totalRawPrice, bill.getOrderPrice(itemsOrdered), 0.001);
     }
 }

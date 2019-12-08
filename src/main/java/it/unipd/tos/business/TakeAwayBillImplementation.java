@@ -32,6 +32,20 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
      * @throws TakeAwayBillException
      */
     public double getOrderPrice(List<MenuItem> itemsOrdered) throws TakeAwayBillException {
-    	return -1;
+   
+        double totalPrice = getTotalPrice(itemsOrdered);
+
+        return totalPrice;
+    }
+    
+     /**
+      * Sums the prices of every item in itemsOrdered
+      * @param itemsOrdered
+      * @return
+      */
+     private static double getTotalPrice(List<MenuItem> itemsOrdered) {
+         return itemsOrdered.stream()
+                 .mapToDouble(item -> item.getPrice())
+                 .sum();
      }
 }
