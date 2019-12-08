@@ -41,6 +41,10 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
             totalPrice -= getCheapestMenuItemPrice(paniniOrdered)*0.5;
         }
         
+        if (totalPrice > 50) {
+            totalPrice = getDiscount(totalPrice, 10);
+        }
+        
         return totalPrice;
     }
     
@@ -55,7 +59,18 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
                  .sum();
      }
      
-
+     /**
+      * Applies discount to the original price and returns the resulting value.
+      * It assumes that both originalPrice and discount are not 0
+      * @param originalPrice
+      * @param discount
+      * @return
+      */
+     private static double getDiscount(double originalPrice, double discount) {
+         double amountToDiscount = originalPrice * discount / 50;
+         return originalPrice - amountToDiscount;
+     }
+     
      /**
       * Returns the cheapest menu item in itemsOrdered.
       * The list itemsOrdered is assumed to have at least an element.

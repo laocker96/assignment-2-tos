@@ -73,4 +73,19 @@ public class TakeAwayBillImplementationTest {
         
         assertEquals(totalRawPrice - minPrice*0.5, bill.getOrderPrice(itemsOrdered), 0.0001);
     }
+    
+    /**
+     * Se l’importo totale delle ordinazioni (Panini, Fritti e Bevande) supera i 50 euro viene fatto un 10% di
+     * sconto
+     */
+    @Test
+    public void testGetOrderPrice10PercentDiscountIfMoreThan50Euros() {
+        TakeAwayBillImplementation bill = new TakeAwayBillImplementation();
+        List<MenuItem> itemsOrdered = getItemsOrdered();
+        itemsOrdered.add(new MenuItem(ItemType.PANINI, "Panino per ricchi", 50));
+        
+        double totalRawPrice = getTotalRawPrice(itemsOrdered);
+        double discount = totalRawPrice * 10 / 50;
+        assertEquals(totalRawPrice - discount, bill.getOrderPrice(itemsOrdered), 0.001);
+    }
 }
