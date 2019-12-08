@@ -21,6 +21,10 @@ public class MenuItem {
         this.name = name;
         this.price = price;
     }
+    
+    public ItemType getItemType() {
+        return itemType;
+    }
 
     public double getPrice() {
         return price;

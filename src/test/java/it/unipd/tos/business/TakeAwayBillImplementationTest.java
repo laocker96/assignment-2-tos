@@ -55,4 +55,22 @@ public class TakeAwayBillImplementationTest {
     	
         assertEquals(totalRawPrice, bill.getOrderPrice(itemsOrdered), 0.001);
     }
+    
+    /**
+     * Se vengono ordinati più di 5 Panini viene fatto uno sconto del 50% sul prezzo del panino meno
+	 * caro
+     */
+    @Test
+    public void testGetOrderPriceCheapestPaninoHas5DiscountIfMoreThan5Panini() {
+        TakeAwayBillImplementation bill = new TakeAwayBillImplementation();
+        List<MenuItem> itemsOrdered = getItemsOrdered();
+        itemsOrdered.add(new MenuItem(ItemType.PANINI, "Panino onto", 4.5));
+        itemsOrdered.add(new MenuItem(ItemType.PANINI, "Panino per poveri", 0.5));
+        itemsOrdered.add(new MenuItem(ItemType.PANINI, "Panino Primavera", 3));
+        
+        double totalRawPrice = getTotalRawPrice(itemsOrdered);
+        double minPrice = 0.5;
+        
+        assertEquals(totalRawPrice - minPrice*0.5, bill.getOrderPrice(itemsOrdered), 0.0001);
+    }
 }
