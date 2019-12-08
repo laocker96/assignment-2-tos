@@ -88,4 +88,24 @@ public class TakeAwayBillImplementationTest {
         double discount = totalRawPrice * 10 / 50;
         assertEquals(totalRawPrice - discount, bill.getOrderPrice(itemsOrdered), 0.001);
     }
+    
+    /**
+     * Non è possibile avere un’ordinazione con più di 30 elementi (se accade prevedere un messaggio
+     * d’errore
+     */
+    @Test(expected = TakeAwayBillException.class)
+    public void testGetOrderPriceNoMoreThan30Items() {
+    	TakeAwayBillImplementation bill = new TakeAwayBillImplementation();
+        
+    	List<MenuItem> itemsOrdered = getItemsOrdered();
+    	
+    	itemsOrdered.addAll(itemsOrdered);
+    	itemsOrdered.addAll(itemsOrdered);
+    	
+    	//Now 36 items on list
+
+        assert(itemsOrdered.size() >= 30);
+        
+        bill.getOrderPrice(itemsOrdered);
+    }
 }
